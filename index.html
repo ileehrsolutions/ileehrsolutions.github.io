@@ -324,12 +324,18 @@
         .training-image {
             height: 200px;
             overflow: hidden;
+            position: relative;
         }
         
         .training-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .training-card:hover .training-image img {
+            transform: scale(1.1);
         }
         
         .training-content {
@@ -823,7 +829,7 @@
             <div class="training-grid">
                 <div class="training-card">
                     <div class="training-image">
-                        <img src="https://images.unsplash.com/photo-1515168833906-d2a3b82b3029?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80" alt="Soft Skills Training">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Soft Skills Training">
                     </div>
                     <div class="training-content">
                         <h3>Core Training Modules</h3>
@@ -852,7 +858,7 @@
                 
                 <div class="training-card">
                     <div class="training-image">
-                        <img src="https://images.unsplash.com/photo-1495195134817-a6e5c5ab3513?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80" alt="Bakery Training">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1133&q=80" alt="Bakery Training">
                     </div>
                     <div class="training-content">
                         <h3>Professional Bakery & Pastry Arts</h3>
