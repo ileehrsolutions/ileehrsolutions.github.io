@@ -30,6 +30,7 @@
             line-height: 1.6;
             color: var(--dark);
             background-color: #f5f7fa;
+            padding-top: 80px; /* Added padding to account for fixed header */
         }
         
         h1, h2, h3, h4, h5, h6 {
@@ -49,8 +50,9 @@
         header {
             background: var(--gradient);
             padding: 15px 0;
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
             z-index: 1000;
             box-shadow: var(--shadow);
         }
@@ -83,6 +85,56 @@
             color: white;
             margin-left: 15px;
             font-style: italic;
+        }
+        
+        /* Navigation Menu */
+        .main-nav {
+            display: flex;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-menu li {
+            position: relative;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            margin: 0 2px;
+        }
+        
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+        }
+        
+        .menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
         }
         
         /* Hero Section */
@@ -625,7 +677,52 @@
         }
         
         /* Responsive Styles */
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-menu li {
+                width: 100%;
+            }
+            
+            .nav-menu a {
+                padding: 15px 20px;
+                border-radius: 0;
+                margin: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .logo {
+                margin-bottom: 10px;
+            }
+        }
+        
         @media (max-width: 768px) {
+            body {
+                padding-top: 120px; /* More padding for mobile header */
+            }
+            
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -651,6 +748,26 @@
                 margin-left: 0;
                 margin-top: 5px;
             }
+            
+            .main-nav {
+                width: 100%;
+                justify-content: center;
+                margin-top: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.7rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -662,6 +779,23 @@
                 <div class="logo-text">ILEE <span>HR SOLUTIONS</span></div>
                 <div class="tagline">Empowering Careers • Transforming Industries</div>
             </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-menu">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#training">Training Programs</a></li>
+                    <li><a href="#projects">Our Projects</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
         </div>
     </header>
 
@@ -1103,8 +1237,11 @@
                 
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
+                    // Close mobile menu if open
+                    document.querySelector('.nav-menu').classList.remove('active');
+                    
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 100,
                         behavior: 'smooth'
                     });
                 }
@@ -1120,6 +1257,20 @@
             } else {
                 header.style.boxShadow = 'var(--shadow)';
                 header.style.background = 'var(--gradient)';
+            }
+        });
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.querySelector('.nav-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (!navMenu.contains(event.target) && !mobileMenu.contains(event.target) && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
             }
         });
     </script>
